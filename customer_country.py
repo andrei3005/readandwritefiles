@@ -7,10 +7,11 @@ csvfile = csv.reader(infile,delimiter=',')
 #outfile.write("Hi")
 next(csvfile)
 
+outfile.write("Full Name, Country\n")
 for record in csvfile:
-    #print('Full Name:', record[1], record[2])
-    #print("Country:", record[4])
-    outfile.write(record[1], record[2])
-    #outfile.write(record[4])
+    full_name = record[1] + " " + record[2]
+    country = record[4]
+
+    outfile.write(full_name + ',' + country + '\n') 
 
 outfile.close()
