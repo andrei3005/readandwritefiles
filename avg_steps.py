@@ -6,38 +6,37 @@ outfile = open('avg_steps.csv','w')
 
 csvfile = csv.reader(infile,delimiter=',')
 
-next(csvfile)
+days = [31,28,31,30,31,30,31,31,30,31,30,31]
+months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+firstIndex = 0
+lastIndex = 0
+x = 0
+lines = infile.readlines()
 
-steps = 0
-steps_total = 0
-amount = 0
-total = 0
-steps_average = 0
-steps_avg_2decimal = 0
-days = 31
+outfile.write('Month | Avg Steps\n')
+print('Month | Avg Steps\n')
 
-outfile.write("Month, Avg Steps\n")
-for record in csvfile:
-    if record[0] == "1":
-        month = "January"
-        steps = float(record[1])
-        steps_total += steps
-        amount = float(record[0])
-        total += amount
-        steps_average = steps_total/total
-        steps_avg_2decimal = "{:.2f}".format(steps_average)
-        #print(month, ',', steps_avg_2decimal)
+monthNum = 0
     
-    #elif record [0] == "2":
-        #month = "February"
-        #steps = float(record[1])
-        #steps_total += steps
-        #feb_steps_average = steps_total/days
-        #feb_steps_avg_2decimal = "{:.2f}".format(feb_steps_average)
-        #print(month, ',', feb_steps_avg_2decimal)
+for num in range(1, 13):
+       
+    totalSteps = 0
+    count = 0
+    steps_average = 0
+    row = infile.readlines()
+     
+    for count in range(0, days[monthNum] + 1):
+           
+        monthRows = row[firstIndex:lastIndex]
 
-#print(month, ',', steps_avg_2decimal)
+        steps_average = float(sum(monthRows)) / max(len(monthRows),1)   #!!!!!
+        
 
-#print(total)
-#print(steps_average)
-print(month, ',', steps_avg_2decimal)
+       
+        print (months[monthNum] + ' | ' + format(steps_average, ',.1f') + ' steps.')
+        outfile.write(months[count] + ' | ' + '{0:.1f}'.format(steps_average)+ '\n')
+       
+        monthNum = monthNum + 1
+
+infile.close()
+outfile.close()
